@@ -1,15 +1,21 @@
 #!/usr/bin/env node
 // frontboost CLI — thin wrapper over the engine, no logic of its own.
-//   frontboost analyze [path] [--format json|claude|codex]
+//   frontboost analyze [path] [--format json|claude|codex|sarif|github-actions]
 
 import { parseArgs } from "node:util";
 import { resolve } from "node:path";
 import { analyze } from "./engine.ts";
 import { reactPlugin } from "./plugins/react.ts";
-import { renderClaude, renderCodex, renderJson } from "./adapters.ts";
+import { renderClaude, renderCodex, renderGithubActions, renderJson, renderSarif } from "./adapters.ts";
 
 const PLUGINS = [reactPlugin];
-const FORMATS = { json: renderJson, claude: renderClaude, codex: renderCodex } as const;
+const FORMATS = {
+  json: renderJson,
+  claude: renderClaude,
+  codex: renderCodex,
+  sarif: renderSarif,
+  "github-actions": renderGithubActions,
+} as const;
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -22,13 +28,13 @@ const { values, positionals } = parseArgs({
 const [command = "analyze", target = "."] = positionals;
 
 if (values.help || command !== "analyze") {
-  console.log("usage: frontboost analyze [path] [--format json|claude|codex]");
+  console.log("usage: frontboost analyze [path] [--format json|claude|codex|sarif|github-actions]");
   process.exit(command === "analyze" || values.help ? 0 : 1);
 }
 
 const render = FORMATS[values.format as keyof typeof FORMATS];
 if (!render) {
-  console.error(`unknown format: ${values.format} (expected json|claude|codex)`);
+  console.error(`unknown format: ${values.format} (expected json|claude|codex|sarif|github-actions)`);
   process.exit(1);
 }
 

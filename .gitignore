@@ -1,3 +1,4 @@
 node_modules/
 # local reference clone, not part of this repo
 react-doctor/
+.claude/settings.local.json*
