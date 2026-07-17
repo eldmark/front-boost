@@ -1,0 +1,24 @@
+{
+  "name": "frontboost",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Framework-agnostic frontend diagnostics for AI agents",
+  "bin": {
+    "frontboost": "./src/cli.ts"
+  },
+  "scripts": {
+    "test": "node --test \"test/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "analyze": "node src/cli.ts analyze"
+  },
+  "dependencies": {
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2"
+  },
+  "engines": {
+    "node": ">=22.6.0"
+  }
+}

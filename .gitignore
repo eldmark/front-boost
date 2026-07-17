@@ -1,0 +1,3 @@
+node_modules/
+# local reference clone, not part of this repo
+react-doctor/

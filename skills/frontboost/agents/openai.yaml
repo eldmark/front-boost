@@ -1,0 +1,7 @@
+interface:
+  display_name: "FrontBoost"
+  short_description: "Frontend diagnostics for AI agents"
+  default_prompt: "Use $frontboost to audit this frontend project and format the findings for Claude or Codex first."
+
+policy:
+  allow_implicit_invocation: true
